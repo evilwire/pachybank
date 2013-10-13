@@ -9,4 +9,19 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Pachybank::Application.config.secret_key_base = '62a3baf2fada5d5f683fb3f7dccfc31a9e82e5c643748d2e287a5e38faef794e94e7e7aeeded6ea9a44bb0c7c384620aa40ec786988ebf392ce71773387773ae'
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+SampleApp::Application.config.secret_key_base = secure_token
