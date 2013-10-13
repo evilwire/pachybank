@@ -26,3 +26,5 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+The Guardfile has been updated to accommodate for Red/Green dev cycles. Pull, merge, then move the guard file before doing bundle install, so as not to insert duplicate watches to the guard file.
